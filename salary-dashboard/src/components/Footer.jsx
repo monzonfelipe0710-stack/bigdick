@@ -28,7 +28,12 @@ export default function Footer() {
               y visualización interactiva con React, Recharts y Tailwind CSS.
             </p>
             <div className="flex items-center gap-3 pt-2">
-              <a href="#" className="glass p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+              <a 
+                href="https://github.com/monzonfelipe0710-stack/trabajo_practico_big_data_grupal.git" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="glass p-2 rounded-lg hover:bg-slate-700/50 transition-colors"
+              >
                 <Github className="w-5 h-5 text-slate-400" />
               </a>
               <a href="#" className="glass p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
