@@ -5,7 +5,7 @@ export default function Footer() {
   const teamMembers = [
     { name: 'Monzón Felipe', role: 'Data Analyst' },
     { name: 'Rolón Agustín', role: 'Data Engineer' },
-    { name: 'Gonzalo', role: 'Data Scientist' }
+    { name: 'Benítez Gonzalo', role: 'Data Scientist' }
   ];
 
   return (
