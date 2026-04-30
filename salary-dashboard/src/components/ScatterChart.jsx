@@ -11,7 +11,7 @@ import {
   ReferenceLine,
   Legend
 } from 'recharts';
-import { Target } from 'lucide-react';
+import { Target, Info } from 'lucide-react';
 import { formatUSD, usdToArs, formatARS } from '../data/chartData';
 
 const roleColors = {
@@ -97,6 +97,38 @@ export default function ScatterPlotChart({ data }) {
           )}
         </div>
       </div>
+
+      {/* Descripción del gráfico */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="mb-6 p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20"
+      >
+        <div className="flex items-start gap-3">
+          <div className="p-2 rounded-lg bg-emerald-500/20 mt-0.5">
+            <Info className="w-4 h-4 text-emerald-400" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-slate-300 text-sm leading-relaxed">
+              <strong className="text-emerald-400">¿Qué muestra?</strong> Este diagrama de dispersión analiza la 
+              <span className="text-teal-400 font-semibold"> relación entre la calificación de la empresa </span> 
+              (Rating 1-5) y el salario que ofrece. Cada punto es una empresa específica.
+            </p>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              <strong className="text-slate-300">Eje X:</strong> Rating de empresa (1-5 estrellas) • 
+              <strong className="text-slate-300"> Eje Y:</strong> Salario ofrecido en USD • 
+              <strong className="text-slate-300"> Color:</strong> Tipo de rol tecnológico •
+              <strong className="text-slate-300"> Tamaño:</strong> Magnitud del salario
+            </p>
+            <div className="flex items-center gap-2 pt-1">
+              <span className="px-2 py-1 rounded bg-cyan-500/10 text-cyan-400 text-xs font-medium">
+                💡 Insight: Empresas con rating {'>'}4.0 tienden a pagar más, pero con alta variabilidad
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="h-[400px] w-full">
         <ResponsiveContainer width="100%" height="100%">

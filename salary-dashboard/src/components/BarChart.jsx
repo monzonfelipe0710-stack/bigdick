@@ -10,7 +10,7 @@ import {
   Cell,
   LabelList
 } from 'recharts';
-import { Briefcase, TrendingUp } from 'lucide-react';
+import { Briefcase, TrendingUp, Info, HelpCircle } from 'lucide-react';
 import { formatUSD, usdToArs, formatARS } from '../data/chartData';
 
 const formatSalary = (value) => {
@@ -77,6 +77,37 @@ export default function SalaryByRoleChart({ data }) {
           <span className="text-blue-400 text-xs font-bold">+12% vs 2025</span>
         </motion.div>
       </div>
+
+      {/* Descripción del gráfico */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20"
+      >
+        <div className="flex items-start gap-3">
+          <div className="p-2 rounded-lg bg-blue-500/20 mt-0.5">
+            <Info className="w-4 h-4 text-blue-400" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-slate-300 text-sm leading-relaxed">
+              <strong className="text-blue-400">¿Qué muestra?</strong> Este gráfico compara el 
+              <span className="text-cyan-400 font-semibold"> salario mediano </span> 
+              de 10 roles tecnológicos diferentes. Las barras representan cuánto gana "el profesional típico" en cada rol.
+            </p>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              <strong className="text-slate-300">Eje X:</strong> Roles tecnológicos (Android, Web, Data Science, etc.) • 
+              <strong className="text-slate-300"> Eje Y:</strong> Salario mediano en USD • 
+              <strong className="text-slate-300"> Color:</strong> Intensidad según magnitud
+            </p>
+            <div className="flex items-center gap-2 pt-1">
+              <span className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 text-xs font-medium">
+                💡 Insight: Android lidera con $750K USD, 44% más que Testing ($520K)
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="h-[400px] w-full">
         <ResponsiveContainer width="100%" height="100%">

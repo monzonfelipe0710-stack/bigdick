@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   ReferenceLine
 } from 'recharts';
-import { BarChart3 } from 'lucide-react';
+import { BarChart3, Info } from 'lucide-react';
 import { usdToArs, formatARS } from '../data/chartData';
 
 const CustomTooltip = ({ active, payload, label }) => {
@@ -46,7 +46,7 @@ export default function HistogramChart({ data }) {
       transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="glass-card rounded-3xl p-6 md:p-8 hover-lift"
     >
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-violet-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
           <BarChart3 className="w-6 h-6 text-white" />
         </div>
@@ -56,7 +56,38 @@ export default function HistogramChart({ data }) {
         </div>
       </div>
 
-      <div className="h-[350px] w-full">
+      {/* Descripción del gráfico */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="mb-5 p-4 rounded-xl bg-gradient-to-r from-purple-500/10 to-violet-500/10 border border-purple-500/20"
+      >
+        <div className="flex items-start gap-3">
+          <div className="p-2 rounded-lg bg-purple-500/20 mt-0.5">
+            <Info className="w-4 h-4 text-purple-400" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-slate-300 text-sm leading-relaxed">
+              <strong className="text-purple-400">¿Qué muestra?</strong> Este histograma revela 
+              <span className="text-violet-400 font-semibold"> cómo se distribuyen los salarios </span> 
+              en el sector tech. Muestra cuántas personas ganan en cada rango salarial.
+            </p>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              <strong className="text-slate-300">Eje X:</strong> Rangos salariales en USD (0-300K, 300K-600K, etc.) • 
+              <strong className="text-slate-300"> Eje Y:</strong> Cantidad de personas en cada rango • 
+              <strong className="text-slate-300"> Forma:</strong> Sesgada a la derecha (pocos ganan mucho)
+            </p>
+            <div className="flex items-center gap-2 pt-1">
+              <span className="px-2 py-1 rounded bg-amber-500/10 text-amber-400 text-xs font-medium">
+                💡 Insight: El 37.7% gana entre $0-300K USD (la mayor concentración)
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="h-[320px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
