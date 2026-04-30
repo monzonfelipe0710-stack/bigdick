@@ -66,7 +66,7 @@ export default function Header() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
                 >
-                  FASTER
+                  Salary Insights
                 </motion.h1>
                 <motion.p 
                   className="text-slate-400 text-sm font-bold tracking-[0.3em] uppercase mt-1"
