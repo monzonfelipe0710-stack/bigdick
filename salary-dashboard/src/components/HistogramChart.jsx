@@ -10,9 +10,11 @@ import {
   ReferenceLine
 } from 'recharts';
 import { BarChart3 } from 'lucide-react';
+import { usdToArs, formatARS } from '../data/chartData';
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
+    const rangeData = payload[0].payload;
     return (
       <div className="glass-card p-4 rounded-xl border border-slate-700/50">
         <p className="text-slate-300 font-semibold mb-1">Rango: {label}</p>
@@ -22,6 +24,11 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p className="text-slate-400 text-xs mt-1">
           {((payload[0].value / 22524) * 100).toFixed(1)}% del total
         </p>
+        {rangeData.usdRange && (
+          <p className="text-emerald-400 text-xs mt-2">
+            ≈ ${(rangeData.usdRange[0] / 1000).toFixed(0)}K-${(rangeData.usdRange[1] / 1000).toFixed(0)}K ARS/año
+          </p>
+        )}
       </div>
     );
   }
@@ -101,13 +108,13 @@ export default function HistogramChart({ data }) {
       <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
         <div className="glass rounded-xl p-3">
           <p className="text-slate-400 text-xs">Moda (rango más frecuente)</p>
-          <p className="text-purple-400 font-bold">0 - 5 Lakhs</p>
-          <p className="text-slate-500 text-xs">37.7% de los casos</p>
+          <p className="text-purple-400 font-bold">$0 - $6K USD</p>
+          <p className="text-slate-500 text-xs">≈ $0 - $6.6M ARS | 37.7% de casos</p>
         </div>
         <div className="glass rounded-xl p-3">
-          <p className="text-slate-400 text-xs">Salarios {'>'}₹20L</p>
+          <p className="text-slate-400 text-xs">Salarios {'>'}$24K USD</p>
           <p className="text-emerald-400 font-bold">1,924 casos</p>
-          <p className="text-slate-500 text-xs">8.5% outliers potenciales</p>
+          <p className="text-slate-500 text-xs">≈ {'>'}$26.4M ARS | 8.5% outliers</p>
         </div>
       </div>
     </motion.div>

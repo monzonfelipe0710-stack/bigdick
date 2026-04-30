@@ -10,19 +10,18 @@ import {
   stats,
   salaryByRoleData,
   salaryDistributionData,
-  ratingVsSalaryData
+  ratingVsSalaryData,
+  formatUSD,
+  usdToArs,
+  formatARS
 } from './data/chartData';
 
 function App() {
-  // Format numbers
-  const formatNumber = (num) => {
-    if (num >= 10000000) {
-      return `₹${(num / 10000000).toFixed(1)}Cr`;
-    }
-    if (num >= 100000) {
-      return `₹${(num / 100000).toFixed(1)}L`;
-    }
-    return num.toLocaleString();
+  // Format salary with USD and ARS conversion
+  const formatSalary = (num) => {
+    const usd = formatUSD(num);
+    const ars = formatARS(usdToArs(num));
+    return { usd, ars };
   };
 
   return (
@@ -64,8 +63,8 @@ function App() {
               />
               <StatCard
                 title="Salario Promedio"
-                value={formatNumber(stats.avgSalary)}
-                subtitle="Compensación media anual"
+                value={formatSalary(stats.avgSalary).usd}
+                subtitle={`≈ ${formatSalary(stats.avgSalary).ars} | Anual`}
                 trend="up"
                 trendValue="+8%"
                 color="emerald"
@@ -73,10 +72,10 @@ function App() {
               />
               <StatCard
                 title="Salario Máximo"
-                value={formatNumber(stats.maxSalary)}
-                subtitle="Compensación más alta registrada"
+                value={formatSalary(stats.maxSalary).usd}
+                subtitle={`≈ ${formatSalary(stats.maxSalary).ars} | Outlier`}
                 trend="up"
-                trendValue="Outlier"
+                trendValue="Top 0.1%"
                 color="purple"
                 delay={0.3}
               />
@@ -160,7 +159,7 @@ function App() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 flex-shrink-0" />
-                    <span>La mayoría de salarios se concentran en el rango 0-10 Lakhs</span>
+                    <span>La mayoría de salarios se concentran entre $0-$12K USD (≈ $0-$13M ARS)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 flex-shrink-0" />
@@ -168,7 +167,7 @@ function App() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 flex-shrink-0" />
-                    <span>Se detectaron 127 outliers con salarios {'>'} ₹50M</span>
+                    <span>Se detectaron 127 outliers con salarios {'>'} $600K USD (≈ $660M ARS)</span>
                   </li>
                 </ul>
               </div>

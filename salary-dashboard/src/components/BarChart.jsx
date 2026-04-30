@@ -10,18 +10,24 @@ import {
   Cell
 } from 'recharts';
 import { Briefcase } from 'lucide-react';
+import { formatUSD, usdToArs, formatARS } from '../data/chartData';
 
 const formatSalary = (value) => {
-  return `₹${(value / 100000).toFixed(1)}L`;
+  return formatUSD(value);
 };
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
+    const usdValue = payload[0].value;
+    const arsValue = usdToArs(usdValue);
     return (
       <div className="glass-card p-4 rounded-xl border border-slate-700/50">
         <p className="text-slate-300 font-semibold mb-1">{label}</p>
         <p className="text-blue-400 font-bold text-lg">
-          Salario Mediano: {formatSalary(payload[0].value)}
+          {formatUSD(usdValue)} USD
+        </p>
+        <p className="text-emerald-400 text-sm">
+          ≈ {formatARS(arsValue)}
         </p>
       </div>
     );
@@ -94,13 +100,15 @@ export default function SalaryByRoleChart({ data }) {
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-4 flex items-center gap-4 text-sm text-slate-400">
+      <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-400">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500" />
-          <span>Salario Mediano</span>
+          <span>Salario Mediano (USD)</span>
         </div>
         <span className="text-slate-600">|</span>
-        <span>Datos de 22,524 registros</span>
+        <span className="text-emerald-400">Conversión a ARS disponible en tooltips</span>
+        <span className="text-slate-600">|</span>
+        <span>22,524 registros</span>
       </div>
     </motion.div>
   );

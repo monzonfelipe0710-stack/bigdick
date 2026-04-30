@@ -12,6 +12,7 @@ import {
   Legend
 } from 'recharts';
 import { Target } from 'lucide-react';
+import { formatUSD, usdToArs, formatARS } from '../data/chartData';
 
 const roleColors = {
   'Android': '#3b82f6',
@@ -29,6 +30,7 @@ const roleColors = {
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
+    const arsSalary = usdToArs(data.salary);
     return (
       <div className="glass-card p-4 rounded-xl border border-slate-700/50 max-w-xs">
         <p className="text-slate-300 font-semibold mb-2">{data.company}</p>
@@ -40,7 +42,10 @@ const CustomTooltip = ({ active, payload }) => {
             Rating: <span className="text-amber-400 font-bold">{data.rating} ★</span>
           </p>
           <p className="text-slate-400">
-            Salario: <span className="text-emerald-400 font-bold">₹{(data.salary / 100000).toFixed(1)}L</span>
+            Salario: <span className="text-emerald-400 font-bold">{formatUSD(data.salary)}</span>
+          </p>
+          <p className="text-emerald-500/80 text-xs">
+            ≈ {formatARS(arsSalary)}
           </p>
         </div>
       </div>
@@ -114,8 +119,8 @@ export default function ScatterPlotChart({ data }) {
               tick={{ fill: '#94a3b8', fontSize: 12 }}
               tickLine={false}
               axisLine={{ stroke: 'rgba(148, 163, 184, 0.2)' }}
-              tickFormatter={(value) => `₹${(value / 100000).toFixed(0)}L`}
-              label={{ value: 'Salario (₹)', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 12 }}
+              tickFormatter={(value) => formatUSD(value)}
+              label={{ value: 'Salario (USD)', angle: -90, position: 'insideLeft', fill: '#94a3b8', fontSize: 12 }}
             />
             <ZAxis type="number" dataKey="salary" range={[50, 200]} />
             <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
@@ -173,7 +178,7 @@ export default function ScatterPlotChart({ data }) {
         <p className="text-slate-300 text-sm">
           <span className="text-emerald-400 font-semibold">Insight:</span> Las empresas con rating {'>'} 4.0 
           muestran una correlación positiva con salarios más altos. Los outliers en salarios 
-          {'>'} ₹20M se concentran principalmente en roles de Data Science y Backend.
+          {'>'} $24K USD (≈ $26M ARS) se concentran principalmente en roles de Data Science y Backend.
         </p>
       </motion.div>
     </motion.div>
