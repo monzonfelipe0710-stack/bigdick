@@ -9,7 +9,7 @@ Tecnicatura Superior en Desarrollo de Software Multiplataforma
 
 Este proyecto es una **landing page interactiva** que presenta visualizaciones de datos salariales del sector tecnológico. Se procesaron **22,524 registros** del dataset *"Salary Dataset - Data Science Lovers"* de Kaggle, generando visualizaciones profesionales con React, Recharts y Tailwind CSS.
 
-**Integrantes:** Monzón Felipe, Rolón Agustín, Gonzalo
+**Integrantes:** Monzón Felipe, Rolón Agustín, Benítez Gonzalo
 
 ---
 
@@ -45,7 +45,7 @@ Según la **clasificación de visualización de datos de Cleveland y McGill**, l
 | Eje | Variable | Tipo | Justificación |
 |-----|----------|------|---------------|
 | **X** | Job Roles (Rol del empleo) | Categórica nominal | Permite comparar roles discretos: Android, Web, Testing, Data Science, etc. |
-| **Y** | Salary (Salario) | Numérica continua | Mediana de salarios en INR (Rupias Indias). Usamos **mediana** en lugar de promedio porque hay outliers extremos (hasta ₹90M) que sesgan la media. |
+| **Y** | Salary (Salario) | Numérica continua | Mediana de salarios en USD (Dólares). Según el dataset, la columna Salary ya está expresada en USD. Usamos **mediana** en lugar de promedio porque hay outliers extremos (hasta $90M USD) que sesgan la media. |
 
 #### ¿Qué representa explícitamente?
 - **Cada barra** = Un rol tecnológico diferente
@@ -53,7 +53,7 @@ Según la **clasificación de visualización de datos de Cleveland y McGill**, l
 - **Color degradado** = Intensidad visual que refuerza la magnitud (mayor salario = color más intenso)
 - **Orden descendente** = Los roles mejor pagados aparecen primero para identificar rápidamente líderes salariales
 
-**Insight clave:** Android Developer muestra la mediana salarial más alta (~₹7.5L), seguido de Full Stack y Backend. Testing tiene la mediana más baja (~₹5.2L).
+**Insight clave:** Android Developer muestra la mediana salarial más alta (~$750K USD), seguido de Full Stack (~$720K) y Backend (~$700K). Testing tiene la mediana más baja (~$520K USD). Los salarios ya están expresados en USD según la documentación del dataset.
 
 ---
 
@@ -68,7 +68,7 @@ Los histogramas son la representación estándar para mostrar la **distribución
 #### Ejes considerados
 | Eje | Variable | Tipo | Justificación |
 |-----|----------|------|---------------|
-| **X** | Rango Salarial (Salary bins) | Numérica continua agrupada | Dividida en intervalos de ₹5L (0-5L, 5L-10L, 10L-15L, etc.) para mostrar dónde se concentran los salarios |
+| **X** | Rango Salarial (Salary bins) | Numérica continua agrupada | Dividida en intervalos de $300K USD (0-300K, 300K-600K, etc.) para mostrar dónde se concentran los salarios. Limitado a $3M para evitar distorsión por outliers extremos ($90M). |
 | **Y** | Frecuencia (Count) | Numérica discreta | Cantidad de registros que caen en cada rango salarial |
 
 #### ¿Qué representa explícitamente?
@@ -77,7 +77,7 @@ Los histogramas son la representación estándar para mostrar la **distribución
 - **Línea de referencia "Media"** = Marca el punto donde se centra la distribución
 - **Colores degradados** = Transición de violeta a índigo para indicar progresión salarial
 
-**Insight clave:** La distribución es **altamente sesgada a la derecha**. El 37.7% de los trabajadores ganan entre 0-5 Lakhs (moda), mientras que solo el 8.5% supera los ₹20L. Esto confirma la desigualdad salarial en el sector tech indio.
+**Insight clave:** La distribución es **altamente sesgada a la derecha**. El 37.7% de los trabajadores ganan entre $0-300K USD (moda), mientras que solo el 0.9% supera los $1.8M USD. Esto confirma la desigualdad salarial en el sector tech indio, con outliers extremos que alcanzan los $90M USD.
 
 ---
 
@@ -94,7 +94,7 @@ El **diagrama de dispersión** es el estándar de facto para analizar **correlac
 | Eje | Variable | Tipo | Rango | Justificación |
 |-----|----------|------|-------|---------------|
 | **X** | Rating de Empresa | Numérica continua | 2.0 - 5.0 | Calificación promedio de la empresa en escala de 5 estrellas. Variable independiente (predictora potencial). |
-| **Y** | Salary (Salario) | Numérica continua | ₹0 - ₹50M | Remuneración anual en INR. Variable dependiente (outcome). |
+| **Y** | Salary (Salario) | Numérica continua | $0 - $5M | Remuneración anual en USD (limitado a $5M para visualización). Variable dependiente (outcome). |
 | **Z** (tamaño) | Salary | Numérica | 50-200px | Tamaño del punto proporcional al salario (mayor salario = punto más grande) |
 | **Color** | Job Roles | Categórica | 10 colores | Cada rol tiene un color distintivo para identificar patrones por categoría |
 
@@ -109,7 +109,8 @@ El **diagrama de dispersión** es el estándar de facto para analizar **correlac
 **Insights clave:**
 1. **Correlación positiva débil:** Empresas con rating >4.0 tienden a pagar más, pero hay mucha variabilidad
 2. **Clusters visibles:** Los puntos de Data Science (púrpura) y Python (verde) se concentran en la zona superior derecha (buenas empresas + buenos salarios)
-3. **Outliers identificados:** Hay puntos aislados en la parte superior (salarios >₹20M) con ratings variados, indicando que empresas con rating medio pueden pagar salarios de élite para roles específicos
+3. **Empresas reales identificadas:** Sasken (Rating 3.8), Unacademy (Rating 4.0), SnapBizz Cloudtech (Rating 3.8) - datos reales del dataset
+4. **Outliers identificados:** Hay puntos aislados en la parte superior (salarios >$2M USD) con ratings variados, indicando que empresas con rating medio pueden pagar salarios de élite para roles específicos
 
 ---
 
@@ -187,7 +188,7 @@ salary-dashboard/
   - `Rating`: Calificación de empresa (1-5)
   - `Company Name`: Nombre de la empresa
   - `Job Title`: Título del puesto
-  - `Salary`: Remuneración en INR
+  - `Salary`: Remuneración en USD (según documentación del dataset)
   - `Location`: Ciudad/Ubicación
   - `Employment Status`: Tipo de contrato
   - `Job Roles`: Categoría del rol
@@ -202,9 +203,23 @@ salary-dashboard/
 - Se normalizó la categorización de roles
 
 ### 2. Por qué mediana en lugar de promedio
-El salario máximo (₹90M) es un outlier extremo que sesga el promedio. La **mediana** representa mejor el "salario típico" que gana un profesional en cada rol.
+El salario máximo ($90M USD) es un outlier extremo que sesga el promedio general ($1.06M USD). La **mediana** (~$600K USD) representa mejor el "salario típico" que gana un profesional en cada rol.
 
-### 3. Diseño visual (UI/UX)
+### 3. Conversión de Moneda (USD → ARS)
+
+Según la documentación del dataset, la columna `Salary` ya está expresada en **Dólares Estadounidenses (USD)**. Para proporcionar una perspectiva local, implementamos conversión a **Pesos Argentinos (ARS)**.
+
+| Parámetro | Valor |
+|-----------|-------|
+| **Tipo de cambio usado** | 1 USD = 1,000 ARS |
+| **Propósito** | Referencia local para estudiantes argentinos |
+| **Implementación** | Conversión automática en tooltips del dashboard |
+| **Actualización** | Valor de referencia fijo (actualizar según cotización actual) |
+
+**Ejemplo de conversión:**
+- Salario Android Developer: $750,000 USD ≈ $750,000,000 ARS ($750M ARS)
+
+### 4. Diseño visual (UI/UX)
 - **Dark mode:** Reduce fatiga visual para dashboards de análisis
 - **Glassmorphism:** Efectos de profundidad con `backdrop-filter`
 - **Gradientes sutiles:** Guían la atención sin saturar

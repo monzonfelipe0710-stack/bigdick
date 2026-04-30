@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { BarChart3, Activity, Database, Sparkles, Zap, TrendingUp } from 'lucide-react';
+import { BarChart3, Activity, Database, Sparkles, Zap, TrendingUp, Users } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -15,6 +15,20 @@ export default function Header() {
       <div className="absolute top-20 right-1/3 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl animate-float" />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-16">
+        {/* Team badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="flex items-center gap-2 mb-4"
+        >
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
+            <Users className="w-4 h-4 text-blue-400" />
+            <span className="text-blue-300 text-xs font-semibold">Trabajo Práctico N°1</span>
+          </div>
+          <span className="text-slate-500 text-sm">Monzón Felipe, Rolón Agustín, Benítez Gonzalo</span>
+        </motion.div>
+
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           {/* Logo / Title */}
           <div className="flex-1">
@@ -81,7 +95,7 @@ export default function Header() {
               </motion.span>
               <br />
               <span className="text-slate-500 text-base mt-2 block">
-                Explorando <span className="text-cyan-400 font-bold">22,524</span> registros de compensaciones en la industria tech.
+                Dataset: <span className="text-cyan-400 font-bold">22,770</span> registros → <span className="text-emerald-400 font-bold">22,524</span> limpios
               </span>
             </motion.p>
           </div>
