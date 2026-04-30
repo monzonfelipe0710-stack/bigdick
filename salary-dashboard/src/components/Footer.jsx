@@ -99,7 +99,7 @@ export default function Footer() {
               Tecnicatura Superior en Desarrollo de Software Multiplataforma
             </p>
             <p className="text-slate-600 text-xs">
-              Asignatura: Big Data II · 2024
+              Asignatura: Big Data II · 2026
             </p>
           </div>
         </div>

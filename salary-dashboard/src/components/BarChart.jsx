@@ -7,9 +7,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell
+  Cell,
+  LabelList
 } from 'recharts';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, TrendingUp } from 'lucide-react';
 import { formatUSD, usdToArs, formatARS } from '../data/chartData';
 
 const formatSalary = (value) => {
@@ -43,14 +44,38 @@ export default function SalaryByRoleChart({ data }) {
       transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className="glass-card rounded-3xl p-6 md:p-8 hover-lift"
     >
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-          <Briefcase className="w-6 h-6 text-white" />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <motion.div 
+            className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/30 glow-blue"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
+            <Briefcase className="w-7 h-7 text-white" />
+          </motion.div>
+          <div>
+            <motion.h2 
+              className="text-2xl font-black text-slate-100 tracking-tight"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Salario por Rol
+              </span>
+            </motion.h2>
+            <p className="text-slate-400 text-sm font-medium">Mediana salarial por categoría de empleo</p>
+          </div>
         </div>
-        <div>
-          <h2 className="text-xl font-bold text-slate-100">Salario por Rol Tecnológico</h2>
-          <p className="text-slate-400 text-sm">Mediana salarial por categoría de empleo</p>
-        </div>
+        <motion.div 
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <TrendingUp className="w-4 h-4 text-blue-400" />
+          <span className="text-blue-400 text-xs font-bold">+12% vs 2025</span>
+        </motion.div>
       </div>
 
       <div className="h-[400px] w-full">
@@ -88,27 +113,48 @@ export default function SalaryByRoleChart({ data }) {
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }} />
             <Bar
               dataKey="salary"
-              radius={[8, 8, 0, 0]}
-              animationDuration={1500}
-              animationBegin={500}
+              radius={[10, 10, 0, 0]}
+              animationDuration={2000}
+              animationBegin={300}
+              animationEasing="ease-out"
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill="url(#barGradient)" />
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill="url(#barGradient)" 
+                  className="transition-all duration-300"
+                  style={{
+                    filter: 'drop-shadow(0 4px 6px rgba(59, 130, 246, 0.3))',
+                  }}
+                />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-400">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500" />
-          <span>Salario Mediano (USD)</span>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400">
+          <motion.div 
+            className="flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/30" />
+            <span className="font-medium">Salario Mediano (USD)</span>
+          </motion.div>
+          <span className="text-slate-600">|</span>
+          <span className="text-emerald-400 font-medium">ARS en tooltips</span>
+          <span className="text-slate-600">|</span>
+          <span className="text-slate-500">22,524 registros</span>
         </div>
-        <span className="text-slate-600">|</span>
-        <span className="text-emerald-400">Conversión a ARS disponible en tooltips</span>
-        <span className="text-slate-600">|</span>
-        <span>22,524 registros</span>
+        <motion.div 
+          className="text-xs text-slate-500 italic"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          Hover sobre las barras para detalles
+        </motion.div>
       </div>
     </motion.div>
   );

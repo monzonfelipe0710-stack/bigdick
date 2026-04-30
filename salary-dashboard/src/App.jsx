@@ -5,6 +5,7 @@ import StatCard from './components/StatCard';
 import SalaryByRoleChart from './components/BarChart';
 import HistogramChart from './components/HistogramChart';
 import ScatterPlotChart from './components/ScatterChart';
+import ParticleBackground from './components/ParticleBackground';
 
 import {
   stats,
@@ -28,6 +29,7 @@ function App() {
     <div className="min-h-screen relative">
       {/* Animated Background */}
       <div className="animated-bg" />
+      <ParticleBackground />
       
       {/* Main Content */}
       <div className="relative z-10">
@@ -128,14 +130,20 @@ function App() {
 
           {/* Data Source Info */}
           <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="glass-card rounded-2xl p-8"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
+            className="glass-card rounded-2xl p-8 border-gradient glow-blue"
           >
-            <h3 className="text-xl font-bold text-slate-200 mb-4">
+            <motion.h3 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="text-2xl font-black gradient-text mb-6"
+            >
               Sobre el Análisis
-            </h3>
+            </motion.h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-400 text-sm leading-relaxed">
               <div>
                 <h4 className="text-slate-300 font-semibold mb-2">Metodología</h4>
