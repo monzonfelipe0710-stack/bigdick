@@ -213,4 +213,4 @@ El salario máximo (₹90M) es un outlier extremo que sesga el promedio. La **me
 ---
 
 **Asignatura:** Big Data II  
-**Año:** 2024
+**Año:** 2026
